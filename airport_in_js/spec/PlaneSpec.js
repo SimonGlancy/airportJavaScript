@@ -1,10 +1,13 @@
+'use strict';
+
 describe("Plane", function() {
   var plane;
   var airport;
 
   beforeEach(function() {
     plane = new Plane();
-    airport = new Airport();
+    airport = jasmine.createSpyObj("airport",  ['allowLanding', 'allowTakeOff']);
+    _setWeatherSunny();
   });
 
   describe("#flying", function() {
@@ -34,5 +37,8 @@ describe("Plane", function() {
       expect(function() {plane.takeOff(airport);}).toThrowError("A flying plane cannot takeoff")
     });
   });
+  function _setWeatherSunny() {
+    spyOn(Math, "random").and.returnValue(5);
+  }
 
 });
